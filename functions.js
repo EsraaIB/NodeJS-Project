@@ -21,19 +21,28 @@ const express=require('express');
     })
 })
 
-function removeDuplicates(array) {
-    var x ,
-        len=array.length,
-        out=[],
-        obj={};
-   
-    for (x=0; x<len; x++) {
-      obj[array[x]]=0;
+function removeDuplicates(a) {
+  var i , j , k;
+  for(i = 0; i < a.length; i++)
+    {
+        for(j = i+1; j < a.length; )
+        {
+            if(a[j] == a[i])
+            {
+                for(k = j; k < n; k++)
+                {
+                    a[k] = a[k+1];
+                }
+                a.length--;
+            }
+            else
+            {
+                j++;
+            }
+        }
     }
-    for (x in obj) {
-      out[out.length]=x;
-    }
-    return out;
+    console.log(a);
+    return a;
   }
  var  res=[] ,r =[];
 function findNumbers( arr , sum  , i  , size)
