@@ -7,8 +7,8 @@ PROJECT is a code for finding the numbers of array that give you target sun with
 1. install NodeJS from [here](https://nodejs.org/en/)
 2. in cmd in the directory of the project write 
 ```
->npm install
->npm start
+>npm install --save express
+>npm run start
 ```
 3. to run the project 
 ```
