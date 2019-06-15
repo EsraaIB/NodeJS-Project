@@ -1,10 +1,10 @@
 const express=require('express');
-//const router=express.Router();
-
- /****************/ const app = express();
 
 
-/** */app.get('/functions/:arr?/:avg?/:size?' , (req , res , next)=>{
+ const app = express();
+
+
+app.get('/functions/:arr?/:avg?/:size?' , (req , res , next)=>{
     var arr= req.params.arr;
     var splitarr=arr.split(",");
     arr=[];
@@ -15,13 +15,14 @@ const express=require('express');
     var avg=req.params.avg;
     var size=req.params.size;
     var sum=parseInt(avg,10)*parseInt(size,10);
-    var result=combinationSum(arr , sum ,parseInt(size,10));
+    var result=method.combinationSum(arr , sum ,parseInt(size,10));
     res.status(200).json({
         arr: result
     })
 })
-
-function removeDuplicates(a) {
+var  res=[] ,r =[];
+var method ={
+ removeDuplicates:function(a) {
   var i , j , k;
   for(i = 0; i < a.length; i++)
     {
@@ -29,7 +30,7 @@ function removeDuplicates(a) {
         {
             if(a[j] == a[i])
             {
-                for(k = j; k < n; k++)
+                for(k = j; k < a.length; k++)
                 {
                     a[k] = a[k+1];
                 }
@@ -41,18 +42,18 @@ function removeDuplicates(a) {
             }
         }
     }
-    console.log(a);
+    
     return a;
-  }
- var  res=[] ,r =[];
-function findNumbers( arr , sum  , i  , size)
+  },
+ 
+ findNumbers:function( arr , sum  , i  , size)
 {
     
     if (sum < 0)
         return;
     if (sum === 0 && r.length===size)
     {
-        //console.log(r);
+        
         res[res.length]=r;
         r=[];
         return;
@@ -61,31 +62,29 @@ function findNumbers( arr , sum  , i  , size)
 	{
 
 		r[r.length]=arr[i]; 
-		findNumbers(arr, sum - arr[i], i , size);
+		method.findNumbers(arr, sum - arr[i], i , size);
 		i++;
 		r.pop();
 	}
+   return res;
+},
 
-}
-
-function combinationSum(arr , sum , size)
+combinationSum:function(arr , sum , size)
 {
     res=[]; r=[];
     arr.sort(function(a, b){return a - b});
    
-    var newarr=removeDuplicates(arr);
+    var newarr=method.removeDuplicates(arr);
    
-    findNumbers(newarr, sum,  0 , size);
-    //console.log(res);
+    method.findNumbers(newarr, sum,  0 , size);
+    
     return res;
 }
-/************************* */
-//app.use();
+};
 
-
+exports.data=method;
 
 const portNumber = process.env.PORT || 8000;
 app.listen(portNumber, () => {
   console.log(`listening on port ${portNumber}`);
 });
-//module.exports=router;
